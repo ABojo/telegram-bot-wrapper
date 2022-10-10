@@ -1,0 +1,14 @@
+{
+  "name": "telegram-bot-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "TelegramBot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.2"
+  }
+}
