@@ -29,6 +29,11 @@ const TelegramBot = (() => {
       this.apiUrl = `https://api.telegram.org/${this.botKey}`;
     }
 
+    async getMe() {
+      const requestUrl = `${this.apiUrl}/getMe`;
+      return await sendGetRequest(requestUrl);
+    }
+
     async sendMessage(chatId, message) {
       const requestUrl = `${this.apiUrl}/sendMessage?chat_id=${chatId}&text=${message}`;
       return await sendGetRequest(requestUrl);
