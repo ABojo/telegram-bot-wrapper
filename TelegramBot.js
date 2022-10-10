@@ -1,14 +1,34 @@
 const axios = require('axios');
 
-class TelegramBot {
-  constructor(botKey) {
-    if (!botKey) {
-      throw new Error('You must provide your bot key as an argument.');
-    }
+const TelegramBot = (() => {
+  function createErrorString(err) {
+    const errorData = err.response.data;
+    const statusCode = errorData.error_code;
+    const statusMessage = errorData.description;
 
-    this.botKey = botKey;
-    this.apiUrl = `https://api.telegram.org/${this.botKey}`;
+    return `The request failed. HTTP Status: ${statusCode} ${statusMessage}`;
   }
-}
+
+  async function sendGetRequest(url) {
+    try {
+      const response = await axios(url);
+      return response.data;
+    } catch (err) {
+      const errorString = createErrorString(err);
+      throw new Error(errorString);
+    }
+  }
+
+  return class {
+    constructor(botKey) {
+      if (!botKey) {
+        throw new Error('You must provide your bot key as an argument.');
+      }
+
+      this.botKey = botKey;
+      this.apiUrl = `https://api.telegram.org/${this.botKey}`;
+    }
+  };
+})();
 
 module.exports = TelegramBot;
